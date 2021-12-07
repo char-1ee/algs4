@@ -25,11 +25,11 @@ public class PercolationStats {
                 int j = StdRandom.uniform(n) + 1;
                 p.open(i, j);
             }
-            threshold[k] = (double) (p.numberOfOpenSites() / n * n);
+            threshold[k] = (double) (p.numberOfOpenSites() / (n * n));
         }
 
-        mean = StdStats.mean(threshold);
-        stddev = StdStats.stddev(threshold);
+        this.mean = StdStats.mean(threshold);
+        this.stddev = StdStats.stddev(threshold);
     }
 
     public double mean() {

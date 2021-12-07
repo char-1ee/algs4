@@ -44,27 +44,27 @@ public class Percolation {
             uf.union(index, 0);
         } else if (row == size) {
             uf.union(index, size * size + 1);
-        } else {
-
-            // Connect adjacent open sites, ordering in up, left, right, down
-            int adjIndex;
-            if (row > 1 && isOpen(row - 1, col)) {
-                adjIndex = convertTo1D(row + 1, col);
-                uf.union(adjIndex, index);
-            }
-            if (col > 1 && isOpen(row, col - 1)) {
-                adjIndex = convertTo1D(row, col + 1);
-                uf.union(adjIndex, index);
-            }
-            if (col < size && isOpen(row, col + 1)) {
-                adjIndex = convertTo1D(row, col - 1);
-                uf.union(adjIndex, index);
-            }
-            if (row < size && isOpen(row + 1, col)) {
-                adjIndex = convertTo1D(row - 1, col);
-                uf.union(adjIndex, index);
-            }
         }
+
+        // Connect adjacent open sites, ordering in up, left, right, down
+        int adjIndex;
+        if (row > 1 && isOpen(row - 1, col)) {
+            adjIndex = convertTo1D(row - 1, col);
+            uf.union(adjIndex, index);
+        }
+        if (col > 1 && isOpen(row, col - 1)) {
+            adjIndex = convertTo1D(row, col - 1);
+            uf.union(adjIndex, index);
+        }
+        if (col < size && isOpen(row, col + 1)) {
+            adjIndex = convertTo1D(row, col + 1);
+            uf.union(adjIndex, index);
+        }
+        if (row < size && isOpen(row + 1, col)) {
+            adjIndex = convertTo1D(row + 1, col);
+            uf.union(adjIndex, index);
+        }
+
     }
 
     public boolean isOpen(int row, int col) {
@@ -73,7 +73,8 @@ public class Percolation {
     }
 
     public boolean isFull(int row, int col) {
-        if (!isOpen(row, col)) return false;
+        if (!isOpen(row, col))  // Check is site open before check isFull
+            return false;
         int index = convertTo1D(row, col);
         return uf.find(index) == uf.find(0);
     }
