@@ -1,7 +1,4 @@
 {
-    "java.project.sourcePaths": [
-        "Percolation"
-    ],
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "c:\\Users\\xingj\\Downloads\\algs4.jar"

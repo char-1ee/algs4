@@ -1,16 +1,14 @@
-import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     private byte[][] grid;
-    private WeightedQuickUnionUF uf;
-    private int size; // row number or col number
+    private final WeightedQuickUnionUF uf;
+    private final int size; // row number or col number
     private int count; // count of open sites
 
     public Percolation(int n) {
         if (n <= 0)
-            return IllegalArgumentException("n <= 0");
+            throw new IllegalArgumentException("n <= 0");
 
         // Virtual top site: 0, virtual bottom site: n*n + 1
         this.uf = new WeightedQuickUnionUF(n * n + 2);
@@ -80,21 +78,17 @@ public class Percolation {
         return uf.find(index) == 0;
     }
 
-    public int numOfOpenSites() {
+    public int numberOfOpenSites() {
         return count;
     }
 
-    public boolean perlocates() {
-        return uf.connected(0, size * size + 1);
+    public boolean percolates() {
+        return uf.find(0) == uf.find(size * size + 1);
     }
 
     private void checkInBounds(int row, int col) {
         if (row < 1 || col > size) {
             throw new IllegalArgumentException("Row or col exceed prescribed bounds.");
         }
-    }
-
-    public static void main(String[] args) {
-
     }
 }
