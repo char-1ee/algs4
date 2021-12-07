@@ -93,7 +93,8 @@ public class Percolation {
             throw new IllegalArgumentException("Row or col exceed prescribed bounds.");
         }
     }
+
     public static void main(String[] args) {
-        
+
     }
 }
