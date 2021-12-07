@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.StdStats;
 public class PercolationStats {
     private static final double CONFIDENCE_95 = 1.96;
 
-    private double[] threshold; // Fraction of opened sites
+    private final double[] threshold; // Fraction of opened sites
     private final int trials; // Trails times
     private final double mean;
     private final double stddev;

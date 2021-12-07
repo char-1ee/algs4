@@ -46,22 +46,22 @@ public class Percolation {
             uf.union(index, size * size + 1);
         } else {
 
-            // Connect adjacent open sites
+            // Connect adjacent open sites, ordering in up, left, right, down
             int adjIndex;
-            if (isOpen(row + 1, col)) {
+            if (row > 1 && isOpen(row - 1, col)) {
                 adjIndex = convertTo1D(row + 1, col);
                 uf.union(adjIndex, index);
             }
-            if (isOpen(row - 1, col)) {
-                adjIndex = convertTo1D(row - 1, col);
-                uf.union(adjIndex, index);
-            }
-            if (isOpen(row, col + 1)) {
+            if (col > 1 && isOpen(row, col - 1)) {
                 adjIndex = convertTo1D(row, col + 1);
                 uf.union(adjIndex, index);
             }
-            if (isOpen(row, col - 1)) {
+            if (col < size && isOpen(row, col + 1)) {
                 adjIndex = convertTo1D(row, col - 1);
+                uf.union(adjIndex, index);
+            }
+            if (row < size && isOpen(row + 1, col)) {
+                adjIndex = convertTo1D(row - 1, col);
                 uf.union(adjIndex, index);
             }
         }
@@ -73,9 +73,9 @@ public class Percolation {
     }
 
     public boolean isFull(int row, int col) {
-        checkInBounds(row, col);
+        if (!isOpen(row, col)) return false;
         int index = convertTo1D(row, col);
-        return uf.find(index) == 0;
+        return uf.find(index) == uf.find(0);
     }
 
     public int numberOfOpenSites() {
@@ -87,8 +87,11 @@ public class Percolation {
     }
 
     private void checkInBounds(int row, int col) {
-        if (row < 1 || col > size) {
-            throw new IllegalArgumentException("Row or col exceed prescribed bounds.");
+        if (row < 1 || row > size) {
+            throw new IllegalArgumentException("Row exceeds prescribed bounds.");
+        }
+        if (col < 1 || col > size) {
+            throw new IllegalArgumentException("Col exceeds precribled bounds.");
         }
     }
 }
