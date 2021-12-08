@@ -64,7 +64,6 @@ public class Percolation {
             adjIndex = convertTo1D(row + 1, col);
             uf.union(adjIndex, index);
         }
-
     }
 
     public boolean isOpen(int row, int col) {
