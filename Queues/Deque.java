@@ -131,8 +131,10 @@ public class Deque<Item> implements Iterable<Item> {
         // Test on operations
         while (!StdIn.isEmpty()) {
             int num = StdIn.readInt();
-            if (deque.size() % 2 == 0) deque.addFirst(num);
-            else deque.addLast(num);
+            if (deque.size() % 2 == 0)
+                deque.addFirst(num);
+            else
+                deque.addLast(num);
         }
         StdOut.println("Current size" + deque.size());
         StdOut.println("Currently empty? " + deque.isEmpty());
@@ -143,7 +145,7 @@ public class Deque<Item> implements Iterable<Item> {
         StdOut.println("Remove the last: " + last);
 
         // Test on iterator
-        Iterator<Integer> iterator = deque.iterator();
+        Deque.DequeIterator<Integer> iterator = deque.iterator();
         int item;
         while (iterator.hasNext()) {
             item = iterator.next();
