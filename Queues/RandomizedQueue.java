@@ -12,13 +12,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private Item[] queue; // queue elements
     private int n; // size of queue items
-    private int last; // pointer of last element of queue
 
     // construct an empty randomized queue
     public RandomizedQueue() {
         queue = (Item[]) new Object[INIT_CAPACITY];
         n = 0;
-        last = -1;
     }
 
     // is the randomized queue empty?
@@ -37,20 +35,17 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new IllegalArgumentException();
         if (n == queue.length)
             resize(2 * queue.length);
-        queue[++last] = item;
-        n++;
+        queue[n++] = item;
     }
 
     // resize the array
     private void resize(int capacity) {
         assert capacity >= n;
         Item[] copy = (Item[]) new Object[capacity];
-        int i = 0, j = 0;
-        while (i <= last) {
-            copy[j++] = queue[i++];
+        for (int i = 0; i < n; i++) {
+            copy[i] = queue[i];
         }
         queue = copy;
-        last = j - 1;
     }
 
     // remove and return an random item
@@ -60,8 +55,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         // StdRandom.shuffle(queue); -> linear time -> deprecated
         int i = StdRandom.uniform(n);
         Item item = queue[i];
-        queue[i] = queue[last]; // save time compared to in-place substitution of array
-        queue[last--] = null;
+        queue[i] = queue[n - 1]; // save time compared to in-place substitution of array
+        queue[n - 1] = null;
 
         if (n > 0 && n == queue.length / 4) {
             resize(queue.length / 2);
