@@ -16,9 +16,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // construct an empty randomized queue
     public RandomizedQueue() {
-        @SuppressWarnings("unchecked") // type item is unknown until runtime
-        Item[] q = (Item[]) new Object[INIT_CAPACITY];
-        queue = q;
+        queue = (Item[]) new Object[INIT_CAPACITY];
         n = 0;
         last = -1;
     }
@@ -46,7 +44,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // resize the array
     private void resize(int capacity) {
         assert capacity >= n;
-        @SuppressWarnings("unchecked") // type of Item is only known at runtime
         Item[] copy = (Item[]) new Object[capacity];
         int i = 0, j = 0;
         while (i <= last) {
@@ -77,41 +74,30 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     public Item sample() {
         if (isEmpty())
             throw new NoSuchElementException();
-
-        // the random pointer may points to a null index
-        // which belongs to the after-resized enlarged space
-        Item item = null;
-        while (item == null) { // until item != null
-            int i = StdRandom.uniform(n);
-            item = queue[i];
-        }
+        int i = StdRandom.uniform(n);
+        Item item = queue[i];
         return item;
     }
 
     // return an independent iterator over items in random order
     public Iterator<Item> iterator() {
-        return new RandomizedQueueIterator();
+        return new RandomizedIterator();
     }
 
-    private class RandomizedQueueIterator implements Iterator<Item> {
-        private int lastOfCopy;
-        private Item[] copy;
+    private class RandomizedIterator implements Iterator<Item> {
+        private int ptr;
+        private int[] randomIndex; // independent itreators
 
-        // we have to use a copy of queue to deal with randomized operations
-        // otherwise queue without copy will be randomized.
-        RandomizedQueueIterator() {
-            lastOfCopy = 0;
-            @SuppressWarnings("unchecked")
-            Item[] temp = (Item[]) new Object[n];
+        public RandomizedIterator() {
+            ptr = 0;
             for (int i = 0; i < n; i++) {
-                temp[i] = queue[i];
+                randomIndex[i] = i;
             }
-            copy = temp;
-            lastOfCopy = last;
+            StdRandom.shuffle(randomIndex); // replacement of uniform()
         }
 
         public boolean hasNext() {
-            return lastOfCopy >= 0;
+            return ptr != n;
         }
 
         public void remove() {
@@ -121,11 +107,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         public Item next() {
             if (!hasNext())
                 throw new NoSuchElementException();
-            int i = StdRandom.uniform(n);
-            Item item = copy[i];
-            copy[i] = copy[lastOfCopy];
-            copy[lastOfCopy--] = null;
-            return item;
+            return queue[randomIndex[ptr++]];
         }
     }
 
