@@ -83,10 +83,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // return an independent iterator over items in random order
     public Iterator<Item> iterator() {
-        return new RandomizedQueueIterator<Item>();
+        return new RandomizedQueueIterator();
     }
 
-    private class RandomizedQueueIterator<Item> {
+    private class RandomizedQueueIterator implements Iterator<Item>{
         private int i = 0; // index of array
 
         public boolean hasNext() {
@@ -94,7 +94,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
 
         public void remove() {
-            throw new UnsupportedOperationExceptin();
+            throw new UnsupportedOperationException();
         }
 
         public Item next() {
@@ -120,7 +120,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         StdOut.println("Current size: " + queue.size());
         StdOut.println("Current empty? " + queue.isEmpty());
 
-        RandomizedQueue.RandomizedQueueIterator<String> t = queue.iterator();
+        Iterator<String> t = queue.iterator();
         String str2;
         while (t.hasNext()) {
             str2 = t.next();

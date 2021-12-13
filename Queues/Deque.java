@@ -58,7 +58,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // add the item to the back
     public void addLast(Item item) {
-        if (Item == null)
+        if (item == null)
             throw new IllegalArgumentException("Add a null item to the back");
         Node oldlast = trailer.prev;
         Node last = new Node();
@@ -98,10 +98,14 @@ public class Deque<Item> implements Iterable<Item> {
 
     // return an iterator over items in order from front to back
     public Iterator<Item> iterator() {
-        return new DequeIterator<Item>();
+
+        // do not call DequeIterator<Item>(), otherwise Item
+        // will be thought as a new generic which is different from 
+        // Item in Iterator<Item>. Potential casting error.
+        return new DequeIterator();
     }
 
-    private class DequeIterator<Item> implements Iterator<Item> {
+    private class DequeIterator implements Iterator<Item> {
         private Node current = header.next;
 
         public boolean hasNext() {
@@ -136,7 +140,7 @@ public class Deque<Item> implements Iterable<Item> {
             else
                 deque.addLast(num);
         }
-        StdOut.println("Current size" + deque.size());
+        StdOut.println("Current size " + deque.size());
         StdOut.println("Currently empty? " + deque.isEmpty());
 
         int first = deque.removeFirst();
@@ -145,7 +149,7 @@ public class Deque<Item> implements Iterable<Item> {
         StdOut.println("Remove the last: " + last);
 
         // Test on iterator
-        Deque.DequeIterator<Integer> iterator = deque.iterator();
+        Iterator<Integer> iterator = deque.iterator();
         int item;
         while (iterator.hasNext()) {
             item = iterator.next();
