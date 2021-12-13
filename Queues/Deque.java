@@ -9,9 +9,9 @@ public class Deque<Item> implements Iterable<Item> {
     private int n; // #nodes in list
 
     // rather than use nodes first and last, here to use header and
-    // trailer to represent that first.prev=header and last.next=trailer
-    private Node header;
-    private Node trailer;
+    // tailer to represent that first.prev=header and last.next=tailer
+    private final Node header;
+    private final Node tailer;
 
     private class Node {
         Item item;
@@ -23,13 +23,13 @@ public class Deque<Item> implements Iterable<Item> {
     public Deque() {
         this.n = 0;
         header = new Node();
-        trailer = new Node();
+        tailer = new Node();
         header.item = null;
-        trailer.item = null;
+        tailer.item = null;
         header.prev = null;
-        trailer.next = null;
-        header.next = trailer;
-        trailer.prev = header;
+        tailer.next = null;
+        header.next = tailer;
+        tailer.prev = header;
     }
 
     // is the deque empty?
@@ -60,13 +60,13 @@ public class Deque<Item> implements Iterable<Item> {
     public void addLast(Item item) {
         if (item == null)
             throw new IllegalArgumentException("Add a null item to the back");
-        Node oldlast = trailer.prev;
+        Node oldlast = tailer.prev;
         Node last = new Node();
         last.item = item;
-        last.next = trailer;
+        last.next = tailer;
         last.prev = oldlast;
         oldlast.next = last;
-        trailer.prev = last;
+        tailer.prev = last;
         n++;
     }
 
@@ -87,11 +87,11 @@ public class Deque<Item> implements Iterable<Item> {
     public Item removeLast() {
         if (isEmpty())
             throw new NoSuchElementException("Remove back but empty");
-        Node last = trailer.prev;
+        Node last = tailer.prev;
         Node beforelast = last.prev;
         Item item = last.item;
-        trailer.prev = beforelast;
-        beforelast.next = trailer;
+        tailer.prev = beforelast;
+        beforelast.next = tailer;
         n--;
         return item;
     }
@@ -100,16 +100,20 @@ public class Deque<Item> implements Iterable<Item> {
     public Iterator<Item> iterator() {
 
         // do not call DequeIterator<Item>(), otherwise Item
-        // will be thought as a new generic which is different from 
+        // will be thought as a new generic which is different from
         // Item in Iterator<Item>. Potential casting error.
         return new DequeIterator();
     }
 
     private class DequeIterator implements Iterator<Item> {
-        private Node current = header.next;
+        
+        // here make current points to header rather than header.first, 
+        // because the deque maybe empty in which case header.next=tailer.
+        // private Node current = header.next;
+        private Node current = header;
 
         public boolean hasNext() {
-            return current != null;
+            return current.next != tailer;
         }
 
         public void remove() {
@@ -119,9 +123,8 @@ public class Deque<Item> implements Iterable<Item> {
         public Item next() {
             if (!hasNext())
                 throw new NoSuchElementException();
-            Item item = current.item;
             current = current.next;
-            return item;
+            return current.item;
         }
     }
 
