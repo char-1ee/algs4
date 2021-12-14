@@ -1,7 +1,9 @@
+import edu.princeton.cs.algs4.Insertion;
+
 public class MergeSort {
     private static final int CUTOFF = 7;
 
-    private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
+    private static void merge(Comparable<Integer>[] a, Comparable<Integer>[] aux, int lo, int mid, int hi) {
         assert isSorted(a, lo, mid);        // precondition: a[lo..mid] sorted
         assert isSorted(a, mid + 1, hi);    // precondition: a[mid+1..hi] sorted
 
@@ -23,7 +25,7 @@ public class MergeSort {
         assert isSorted(a, lo, hi);         // postcondition: a[lo..hi] sorted
     }
 
-    private static void sort(Comparable[] a, Comparable[] aux, int lo, int hi) {
+    private static void sort(Comparable<Integer>[] a, Comparable<Integer>[] aux, int lo, int hi) {
         if (hi <= lo + CUTOFF - 1) {        // improvement 1
             Insertion.sort(a, lo, hi);
             return;
@@ -36,8 +38,17 @@ public class MergeSort {
         merge(a, aux, lo, mid, hi);
     }
 
-    private static void sort(Comparable[] a) {
-        aux = new Comparable[a.length];
+    private static void sort(Comparable<Integer>[] a) {
+        @SuppressWarnings("unchecked")
+        Comparable<Integer>[] aux = (Comparable<Integer>[])new Object[a.length];
         sort(a, aux, 0, a.length - 1);
+    }
+
+    // Temp methods
+    private static boolean less(Comparable<Integer> comparable, Comparable<Integer> comparable2) {
+        return false;
+    }
+    private static boolean isSorted(Comparable<Integer>[] a, int i, int hi) {
+        return false;
     }
 }
