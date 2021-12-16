@@ -26,10 +26,10 @@ public class SmallerAuxMerge {
         System.out.println("After merging: " + Arrays.toString(arr));
     }
 
-    private void merge(Comparable[] arr) {
+    private static void merge(int[] arr) {
         int n = arr.length;
         int l = 0, r = n;
-        Comparable[] aux = new Comparable[n];
+        int[] aux = new int[n];
         for (int i = 0; i < n; i++) {
             aux[i] = arr[i];
         }
@@ -39,15 +39,10 @@ public class SmallerAuxMerge {
                 break;
             else if (r >= 2 * n)
                 arr[i] = aux[l++];
-            else if (less(arr[r], arr[l]))
+            else if (arr[r]< arr[l])
                 arr[i] = arr[r++];
-            else if (less(arr[l], arr[r]))
-                arr[k] = aux[l++];
+            else if (arr[l]< arr[r])
+                arr[i] = aux[l++];
         }
-
-    }
-
-    private boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
     }
 }
