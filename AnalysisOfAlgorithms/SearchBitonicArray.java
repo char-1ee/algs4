@@ -23,9 +23,9 @@ public class BitonicArraySearch {
         while (i < j) {
             int mid = i + (i - j) >> 2;
             if (arr[mid] < tgt)
-                j = mid - 1;
+                return binarySearch(arr, i, mid-1, tgt);
             else if (arr[mid] > tgt)
-                i = mid + 1;
+                return binarySearch(arr, mid+1, j, tgt);
             else
                 return true;
         }
