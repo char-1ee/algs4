@@ -39,9 +39,9 @@ public class SmallerAuxMerge {
                 break;
             else if (r >= 2 * n)
                 arr[i] = aux[l++];
-            else if (arr[r]< arr[l])
+            else if (arr[r] < arr[l])
                 arr[i] = arr[r++];
-            else if (arr[l]< arr[r])
+            else if (arr[l] < arr[r])
                 arr[i] = aux[l++];
         }
     }

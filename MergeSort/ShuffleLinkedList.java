@@ -7,13 +7,15 @@ import java.util.Random;
  * https://stackoverflow.com/questions/12167630/algorithm-for-shuffling-a-linked-list-in-n-log-n-time/27624106#27624106
  */
 public class ShuffleLinkedList {    // TODO: merge shuffled linked list
-    private Node first = null;
-
     private class Node {
         int item;
         Node next;
     }
 
+    /**
+     * Mergesort shuffle list.
+     * Time: O(nlogn); Space: O(1)
+     */
     public void shuffle(Node first) {
         if (first == null || first.next == null)
             return;
@@ -73,6 +75,9 @@ public class ShuffleLinkedList {    // TODO: merge shuffled linked list
         return cnt;
     }
 
+    /**
+     * Use built-in sorting methods.
+     */
     public void builtInDS() {
         LinkedList<Object> list = new LinkedList<>();
         Random rand = new Random();
@@ -102,5 +107,48 @@ public class ShuffleLinkedList {    // TODO: merge shuffled linked list
         }
 
         System.out.println("After shuffled: " + list.toString());
+    }
+
+    /**
+     * Firstly decompose list into array, then sort array and then reform the list.
+     * Time: O(n); Space O(n)
+     */
+    public void shuffleByAux(Node head) {
+        if (head == null || head.next == null)
+            return;
+
+        Node curr = head;   // an pointer to current header
+        int cnt = 0;        // count of node numbers
+        while (curr != null) {
+            curr = curr.next;
+            cnt++;
+        }
+
+        // auxiliary array contains nodes' values
+        int[] arr = new int[cnt];
+        curr = head;
+
+        // extract nodes' value from list into array
+        for (int i = 0; curr != null; i++) {
+            arr[i] = curr.item;
+            curr = curr.next;
+        }
+
+        // Fisher-Yates shuffle the array
+        Random rand = new Random();
+        for (int n = cnt - 1; n > 0; n--) {
+            int j = rand.nextInt(n + 1);
+            int temp = arr[j];
+            arr[j] = arr[n];
+            arr[n] = temp;
+        }
+
+        // reform the list by the sorted array
+        curr = head;
+        int i = 0;
+        while (curr != null) {
+            curr.item = arr[i++];
+            curr = curr.next;
+        }
     }
 }
