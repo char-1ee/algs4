@@ -47,20 +47,12 @@ public class MergeSort {
         sort(a, aux, 0, a.length-1);
         assert isSorted(a);
     }
-
-
-   /***************************************************************************
-    *  Helper sorting function.
-    ***************************************************************************/
-    
+   
     // is v < w ?
     private static boolean less(Comparable v, Comparable w) {
         return v.compareTo(w) < 0;
     }
         
-   /***************************************************************************
-    *  Check if array is sorted - useful for debugging.
-    ***************************************************************************/
     private static boolean isSorted(Comparable[] a) {
         return isSorted(a, 0, a.length - 1);
     }
