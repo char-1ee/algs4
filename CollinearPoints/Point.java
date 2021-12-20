@@ -10,6 +10,7 @@
 
 import java.util.Comparator;
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
 
 public class Point implements Comparable<Point> {
 
@@ -124,6 +125,16 @@ public class Point implements Comparable<Point> {
      * Unit tests the Point data type.
      */
     public static void main(String[] args) {
-        /* YOUR CODE HERE */
+        Point p1 = new Point(3, 4);
+        Point p2 = new Point(4, 5);
+        Point p0 = new Point(3, 5);
+        p1.draw();
+        p2.draw();
+        p1.drawTo(p2);
+
+        StdOut.println("Test toString(): " + p1.toString() + " " + p2.toString());
+        StdOut.println("Test slopeTo(): " + p1.slopeTo(p2));
+        StdOut.println("Test compareTo(): " + p1.compareTo(p2));
+        StdOut.println("Test slopeOrder(): " + p0.slopeOrder().compare(p1, p2));
     }
 }
