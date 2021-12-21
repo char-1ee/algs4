@@ -63,11 +63,11 @@ public class Point implements Comparable<Point> {
         int x0 = this.x, y0 = this.y;
         int x1 = that.x, y1 = this.y;
 
-        if (y1 == y0 && x1 != x0)   return +0.0;
+        if (x1 != x0 && y1 == y0)   return +0.0;
         if (x1 == x0 && y1 != y0)   return Double.POSITIVE_INFINITY;
         if (x1 == x0 && y1 == y0)   return Double.NEGATIVE_INFINITY;
 
-        return (y0-y1) / (x0-x1);
+        return (y0-y1) * 1.0 / (x0-x1);
     }
 
     /**
@@ -83,13 +83,7 @@ public class Point implements Comparable<Point> {
      *         argument point
      */
     public int compareTo(Point that) {
-        if (that.y > this.y) return -1;
-        else if (that.y < this.y)   return 1;
-        else {
-            if (that.x < this.x)   return 1;
-            else if (that.x > this.x)   return -1;
-        }
-        return 0;
+        return this.y == that.y ? this.x - that.x : this.y - that.y;
     }
 
     /**

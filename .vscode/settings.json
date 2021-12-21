@@ -2,7 +2,8 @@
     "java.project.sourcePaths": [
         "Queues",
         "Percolation",
-        "MergeSort"
+        "MergeSort",
+        "CollinearPoints"
     ],
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
