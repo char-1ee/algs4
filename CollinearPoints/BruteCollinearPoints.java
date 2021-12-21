@@ -5,7 +5,6 @@ import java.util.List;
 public class BruteCollinearPoints {
 
     private Point p, q, r, s; // four points
-    private int cnt = 0; // number of line segments
     private List<LineSegment> lines; // collection of collinear segements
 
     /**
@@ -39,7 +38,7 @@ public class BruteCollinearPoints {
 
     /** Return the number of line segments. */
     public int numberOfSegements() {
-        return cnt;
+        return lines.size();
     }
 
     /** Return the line segments. */
