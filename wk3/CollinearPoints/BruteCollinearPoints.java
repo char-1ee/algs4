@@ -4,27 +4,28 @@ import java.util.List;
 
 public class BruteCollinearPoints {
 
-    private Point p, q, r, s; // four points
-    private List<LineSegment> lines; // collection of collinear segements
+    private final Point[] points;
+    private final List<LineSegment> lines; // collection of collinear segements
 
     /**
      * Find all line segments containing 4 points.
      */
     public BruteCollinearPoints(Point[] points) {
+        this.points = points;
         check(points);
         int n = points.length;
         lines = new ArrayList<LineSegment>();
         for (int i = 0; i < n - 3; i++) {
-            p = points[i];
+            Point p = points[i];
             for (int j = i + 1; j < n - 2; j++) {
-                q = points[j];
+                Point q = points[j];
                 double pq = p.slopeTo(q);
                 for (int k = j + 1; k < n - 1; k++) {
-                    r = points[k];
+                    Point r = points[k];
                     double pr = p.slopeTo(r);
                     if (pq == pr) {
                         for (int m = k + 1; m < n; m++) {
-                            s = points[m];
+                            Point s = points[m];
                             double ps = p.slopeTo(s);
                             if (pr == ps) {
                                 lines.add(new LineSegment(p, s));
@@ -37,7 +38,7 @@ public class BruteCollinearPoints {
     }
 
     /** Return the number of line segments. */
-    public int numberOfSegements() {
+    public int numberOfSegments() {
         return lines.size();
     }
 

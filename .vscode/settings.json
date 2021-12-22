@@ -3,7 +3,8 @@
         "Queues",
         "Percolation",
         "MergeSort",
-        "CollinearPoints"
+        "CollinearPoints",
+        "wk3/CollinearPoints"
     ],
     "java.project.referencedLibraries": [
         "lib/**/*.jar",

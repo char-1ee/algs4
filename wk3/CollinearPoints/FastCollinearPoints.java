@@ -8,16 +8,17 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class FastCollinearPoints {
 
-    private Point[] sortedPoints; // sorted points array
-    private List<LineSegment> lines; // collection of collinear segments
+    private final Point[] ps;
+    private final List<LineSegment> lines; // collection of collinear segments
 
     /** Finds all lines segment containing 4 or more pointss */
     public FastCollinearPoints(Point[] points) {
+        this.ps = points;
         check(points);
-        int n = points.length;
+        int n = ps.length;
         lines = new ArrayList<LineSegment>();
-        sortedPoints = points;
-        Arrays.sort(sortedPoints); // which is repeated done in check()
+        Point[] sortedPoints = ps.clone();  // sorted ps array
+        Arrays.sort(sortedPoints);              // which is repeated done in check()
 
         for (int i = 0; i < n - 3; i++) {
 
@@ -25,7 +26,7 @@ public class FastCollinearPoints {
             Point p0 = sortedPoints[i];
             Point[] sortedPointsBySlope = sortedPoints.clone();
             Arrays.sort(sortedPointsBySlope, p0.slopeOrder());
-            List<Point> cand = new ArrayList<Point>();  // collection for candidate points
+            List<Point> cand = new ArrayList<Point>();  // collection for candidate ps
             double slope = Double.NEGATIVE_INFINITY;    // initial slope
 
             // j starts from 1 since sortedPoint[i] is at sortedPointBySlope[0]
@@ -38,7 +39,7 @@ public class FastCollinearPoints {
                     cand = new ArrayList<>();
                     slope = p0.slopeTo(p1);
                 } 
-                if (cand.size() > 2) lines.add(new LineSegment(p0, p1));    // the last pair of collinear points 
+                if (cand.size() > 2) lines.add(new LineSegment(p0, p1));    // the last pair of collinear ps 
             }
         }
     }
