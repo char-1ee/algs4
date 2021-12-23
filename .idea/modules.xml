@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/algs4.iml" filepath="$PROJECT_DIR$/.idea/algs4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wk1/wk1.iml" filepath="$PROJECT_DIR$/wk1/wk1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wk2/wk2.iml" filepath="$PROJECT_DIR$/wk2/wk2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wk3/wk3.iml" filepath="$PROJECT_DIR$/wk3/wk3.iml" />
+    </modules>
+  </component>
+</project>

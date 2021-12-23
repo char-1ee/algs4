@@ -4,28 +4,33 @@ import java.util.List;
 
 public class BruteCollinearPoints {
 
-    private final Point[] points;
-    private final List<LineSegment> lines; // collection of collinear segements
+    private final List<LineSegment> lines; // collection of collinear segments
 
     /**
      * Find all line segments containing 4 points.
      */
     public BruteCollinearPoints(Point[] points) {
-        this.points = points;
-        check(points);
+
+        // check for all corner cases
+        checkNull(points);
+        Point[] sortedArray = points.clone();
+        Arrays.sort(sortedArray);
+        checkDuplicates(sortedArray);
+
         int n = points.length;
-        lines = new ArrayList<LineSegment>();
+        lines = new ArrayList<>();
+
         for (int i = 0; i < n - 3; i++) {
-            Point p = points[i];
+            Point p = sortedArray[i];
             for (int j = i + 1; j < n - 2; j++) {
-                Point q = points[j];
+                Point q = sortedArray[j];
                 double pq = p.slopeTo(q);
                 for (int k = j + 1; k < n - 1; k++) {
-                    Point r = points[k];
+                    Point r = sortedArray[k];
                     double pr = p.slopeTo(r);
                     if (pq == pr) {
                         for (int m = k + 1; m < n; m++) {
-                            Point s = points[m];
+                            Point s = sortedArray[m];
                             double ps = p.slopeTo(s);
                             if (pr == ps) {
                                 lines.add(new LineSegment(p, s));
@@ -52,18 +57,20 @@ public class BruteCollinearPoints {
     }
 
     /** Check corner cases. */
-    private void check(Point[] points) {
+    private void checkNull(Point[] points) {
         if (points == null)
-            throw new IllegalArgumentException("Given null array");
-        Point[] copy = points.clone();
-        Arrays.sort(copy);
-        int i = 1;
-        for (Point point : copy) {
+            throw new IllegalArgumentException("The array is null.");
+        for (Point point : points) {
             if (point == null)
-                throw new IllegalArgumentException("Find null elements");
-            if (i > 1 && point.compareTo(points[i - 1]) == 0)
-                throw new IllegalArgumentException("Find duplicates");
-            i++;
+                throw new IllegalArgumentException("The array contains null element.");
+        }
+    }
+
+    /** Check for duplicates. */
+    private void checkDuplicates(Point[] points) {
+        for (int i = 0; i < points.length - 1; i++) {
+            if (points[i].compareTo(points[i + 1]) == 0)
+                throw new IllegalArgumentException("Find duplicates in array.");
         }
     }
 }

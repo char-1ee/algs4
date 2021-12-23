@@ -64,8 +64,8 @@ public class Point implements Comparable<Point> {
         int x1 = that.x, y1 = that.y;
 
         if (x1 != x0 && y1 == y0)   return +0.0;
-        if (x1 == x0 && y1 != y0)   return Double.POSITIVE_INFINITY;
         if (x1 == x0 && y1 == y0)   return Double.NEGATIVE_INFINITY;
+        if (x1 == x0)   return Double.POSITIVE_INFINITY;
 
         return (y0 - y1) * 1.0 / (x0 - x1);
     }
@@ -97,8 +97,9 @@ public class Point implements Comparable<Point> {
     }
 
     private static class SlopeComparator implements Comparator<Point> {
-        private final Point p;
+        private final Point p;  // Point used to construct comparator
 
+        // Constructor
         SlopeComparator(Point point) {
             this.p = point;
         }
@@ -107,7 +108,7 @@ public class Point implements Comparable<Point> {
         public int compare(Point p1, Point p2) {
             double slope1 = p.slopeTo(p1);
             double slope2 = p.slopeTo(p2);
-            return slope1 == slope2 ? 0 : (slope1 > slope2 ? 1 : -1);
+            return Double.compare(slope1, slope2);
         }
     }
 
