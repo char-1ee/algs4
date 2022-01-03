@@ -21,7 +21,7 @@ public class QueueBy2Stacks {
             }
         }
 
-        int item = null; 
+        int item = 0;
         if (!outStack.isEmpty()) {
             item = outStack.pop();
             size--;
