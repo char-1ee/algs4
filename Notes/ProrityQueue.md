@@ -4,9 +4,7 @@
 
 ### API
 
-![image-20220101212434771](C:\Users\JianNotFound\AppData\Roaming\Typora\typora-user-images\image-20220101212434771.png)
-
-
+![1641284434454.png](image/ProrityQueue/1641284434454.png)
 
 ### Priority queue: unordered array implementation
 
@@ -15,19 +13,19 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>>
 {
     private Key[] pq;	// pq[i] = ith element on pq
     private int N;`		// number of elements on pq
-      
+  
     public UnorderedMaxPQ(int capacity){
     	pq = (Key[]) new Comparable[capacity];  // generic array creation
-    }	
-    
+    }
+  
     public boolean isEmpty() {
         return N == 0;
     }
-    
+  
     public void insert(Key x) {
         pq[N++] = x;
     }
-    
+  
     public Key delMax() {
         int max = 0;
         for (int i = 1; i < N; i++)
@@ -38,19 +36,16 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>>
 }
 ```
 
-
-
 ## Binary heaps
 
 ### Complete binary tree
 
 - Perfect balanced, except for bottom level binary tree.
-
 - Height of complete binary tree with N nodes is `floor(lgN)`
 
 ### Binary heap representations
 
-![image-20220101223525746](C:\Users\JianNotFound\AppData\Roaming\Typora\typora-user-images\image-20220101223525746.png)
+![1641284508326.png](image/ProrityQueue/1641284508326.png)
 
 ### Binary heap properties
 
@@ -60,7 +55,7 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>>
 
 ### Binary heap operations
 
-- Promotion 
+- Promotion
 
   ```Java
   private void swim(int k) {
@@ -70,7 +65,6 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>>
       }
   }
   ```
-
 - Insertion
 
   ```Java
@@ -79,7 +73,6 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>>
       swim(N);
   }
   ```
-
 - Demotion
 
   ```java
@@ -93,7 +86,6 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>>
       }
   }
   ```
-
 - Delete max
 
   ```java
@@ -106,8 +98,6 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>>
   }
   ```
 
-  
-
 ### Binary heap: Java implementation
 
 ```java
@@ -115,27 +105,27 @@ public class MaxPQ<Key extends Comparable<Key>>
 {
     private Key[] pq;
     private int N;
-    
+  
     public MaxPQ(int capacity) {
         pq = (Key[]) new Comparable[capacity+1];
     }
-    
+  
     public boolean isEmpty() {
         return N == 0;
     }
-    
+  
     public void insert(Key key) {}
-    
+  
     public Key delMax() {}
-    
+  
     private void swim(int k) {}
-    
+  
     private void sink(int k) {}
-    
+  
     private boolean less(int i, int j) {
         return pq[i].compareTo(pq[j]) < 0;
     }
-    
+  
     private void exch(int i, int j) {
         Key t = pq[i];
         pq[i] = pq[j];
@@ -146,19 +136,16 @@ public class MaxPQ<Key extends Comparable<Key>>
 
 ### Costs comparison
 
-![image-20220101225550559](C:\Users\JianNotFound\AppData\Roaming\Typora\typora-user-images\image-20220101225550559.png)
-
-
+![1641284523301.png](image/ProrityQueue/1641284523301.png)
 
 ## Heapsort
 
 1. Heap construction: build max heap using bottom-up method
-
 2. Sort down: repeatedly delete the largest remaining item
 
-![image-20220101231314284](C:\Users\JianNotFound\AppData\Roaming\Typora\typora-user-images\image-20220101231314284.png)
+![1641284533146.png](image/ProrityQueue/1641284533146.png)
 
-![image-20220101231335234](C:\Users\JianNotFound\AppData\Roaming\Typora\typora-user-images\image-20220101231335234.png)
+![1641284541024.png](image/ProrityQueue/1641284541024.png)
 
 ### Heapsort: java implementation
 
@@ -179,8 +166,8 @@ public class Heap
 
 ### Mathematical analysis
 
-![image-20220101231846857](C:\Users\JianNotFound\AppData\Roaming\Typora\typora-user-images\image-20220101231846857.png)
+![1641284553818.png](image/ProrityQueue/1641284553818.png)
 
 ### Summary all sorting
 
-![image-20220101231935897](C:\Users\JianNotFound\AppData\Roaming\Typora\typora-user-images\image-20220101231935897.png)
+![1641284561832.png](image/ProrityQueue/1641284561832.png)
