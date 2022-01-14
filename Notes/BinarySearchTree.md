@@ -217,15 +217,16 @@ private Node deleteMin(Node x) {
   	if (x == null) return null;
   	int cmp = key.compareTo(x.key);
   	if (cmp < 0) x.left = delete(x.left, key); // search for key
-  	if (cmp > 0) x.right = delete(x.right, key);
+  	else if (cmp > 0) x.right = delete(x.right, key);
   	else {
   		if (x.right == null) return x.left; // no right child
-  		if (x.left == null) return x.right; // no left child
-
-  		Node t = x;
-  		x = min(t.right);		    // replace with successor
-  		x.right = deleteMin(t.right);
-  		X.left = t.left;
+  		else if (x.left == null) return x.right; // no left child
+  		else {
+  			Node t = x;
+  			x = min(t.right);	// replace with successor
+  			x.right = deleteMin(t.right);
+  			X.left = t.left;
+  		}
   	}
   	x.count = size(x.left) + size(x.right) + 1; // update substree counts
   	return x;
