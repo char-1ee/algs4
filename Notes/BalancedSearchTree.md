@@ -1,6 +1,6 @@
 # Balanced Search Trees
 
-To find a symbol table implementation that guarantee performance of search hit, insert, delete operations in $O(logN)$ even in worst cases. Thus, we introduce three types of balanced search trees, 2-3 trees, left-leaning red-balck BSTs, B-trees.
+To find a symbol table implementation that guarantee performance of search hit, insert, delete operations in $O(logN)$ even in worst cases. Thus, we introduce three types of balanced search trees, 2-3 trees, left-leaning red-black BSTs, B-trees.
 
 ## 2-3 search trees
 
@@ -64,14 +64,14 @@ To find a symbol table implementation that guarantee performance of search hit, 
   ```java
   private static final boolean RED = true;
   private static final boolean BLACK = false;
-
+  
   private class Node {
   	Key key;
   	value val;
   	Node left, right;
   	boolean color; // color of parent link
   }
-
+  
   // each node is pointed by precisely one link form its parent
   // tell that link is RED or not
   private boolean isRed(Node x) {
@@ -79,7 +79,7 @@ To find a symbol table implementation that guarantee performance of search hit, 
   	return x.color == RED;
   }
   ```
-- **Left rotation** (counterclockwise). Orient a (temporarily) right-leaning red link to lean left.
+- **Left rotation** (counter clockwise). Orient a (temporarily) right-leaning red link to lean left.
 
   ```java
   private Node rotateLeft(Node x) {
@@ -119,7 +119,7 @@ To find a symbol table implementation that guarantee performance of search hit, 
   ```
 - **Insertion.**
 
-  - Basic strategy. To maintian 1-1 correspondence with 2-3 trees.
+  - Basic strategy. To maintain 1-1 correspondence with 2-3 trees.
 
     - Right child red, left child black: rotate left.
     - Left child, left-left grandchild red: rotate right.
@@ -132,11 +132,11 @@ To find a symbol table implementation that guarantee performance of search hit, 
   	if (cmp < 0) h.left = put(h.left, key, val);
   	else if (cmp > 0) h.right = put(h.right, key, val);
   	else h.val = val;
-
+  
   	if (isRed(h.right) && !isRed(h.left)) h = rotateLeft(h); // lean left
   	if (isRed(h.left) && isRed(h.left.left)) h = rotateRight(h); // balance 4-node
   	if (isRed(h.left) && isRed(h.right)) flipColors(h); // split 4-node
-
+  
   	return h;
   }
   ```

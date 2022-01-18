@@ -29,12 +29,12 @@ public class GeneralizedQueue<Item> {
 
     /** Remove an item from the front of the queue */
     public void dequeue() {
-        bst.deleteMin();
+        bst.deleteMin(); // delete the smallest key and associate value
     }
 
     /** return the i-th item in the queue */
     public Item query(int i) {
-        int key = bst.rank(i);
+        int key = bst.rank(i); // each node with rank k will take k-th place.
         return bst.get(key);
     }
 
