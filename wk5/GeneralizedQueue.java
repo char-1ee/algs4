@@ -34,7 +34,10 @@ public class GeneralizedQueue<Item> {
 
     /** return the i-th item in the queue */
     public Item query(int i) {
-        int key = bst.rank(i); // each node with rank k will take k-th place.
+
+        // a node in a BST has rank k if precisely k other keys in the BST are smaller,
+        // each node with rank k will take k-th place.
+        int key = bst.rank(i);
         return bst.get(key);
     }
 
