@@ -2,4 +2,5 @@
 
 Course repo for *Algorithms, 4th Edition*.
 
-***In active maintenance.***
+- PartI (_Completed_)
+- PartII (_In progress_)
